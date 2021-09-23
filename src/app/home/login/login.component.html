@@ -1,0 +1,30 @@
+
+<div class="wrapper">
+  <img src="assets/images/livros.png" alt="">
+    <div id="formContent">
+      <form class="form mt-4"  (ngSubmit)="login()" #loginForm="ngForm">
+        <input type="text" id="login"  name="login"
+        placeholder="E-mail" [(ngModel)]="email"
+        #campoEmail="ngModel" required/>
+        <app-mensagem
+      *ngIf="campoEmail.invalid && campoEmail.touched"
+      mensagem="Email obrigatório"
+    >
+  </app-mensagem>
+        <input type="password" id="password" class="passwordLabel"
+        name="password" placeholder="Senha"  [(ngModel)]="password"
+        #campoPassword="ngModel" required/>
+        <app-mensagem
+        *ngIf="campoPassword.invalid && campoPassword.touched"
+        mensagem="Senha obrigatória">
+      </app-mensagem>
+        <input type="submit"  value="Entrar"/>
+      </form>
+
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" [routerLink]="['novousuario']">Não é cadastrado?</a>
+      </div>
+    </div>
+  </div>
+
