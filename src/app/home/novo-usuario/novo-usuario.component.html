@@ -14,7 +14,7 @@
           mensagem="Usuário precisa ter mais caracteres"
           >
           </app-mensagem>
-          <input type="text" placeholder="Email" formControlName="email"/>
+          <input type="text" placeholder="Email" formControlName="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/>
           <app-mensagem
           *ngIf="novoUsuarioForm.get('email')?.errors?.required &&
           novoUsuarioForm.get('email')?.touched"
@@ -23,11 +23,11 @@
           </app-mensagem>
           <app-mensagem
           *ngIf="novoUsuarioForm.get('email')?.errors?.email &&
-          novoUsuarioForm.get('email')?.touched"
+          novoUsuarioForm.get('email')?.touched || novoUsuarioForm.get('email')?.errors?.email.pattern"
           mensagem="E-mail no formato incorreto"
           >
           </app-mensagem>
-          <input type="password" class="passwordLabel"  placeholder="Senha" formControlName="password"/>
+          <input type="password" class="passwordLabel" maxlength="6"  placeholder="Senha" formControlName="password"/>
           <app-mensagem
           *ngIf="novoUsuarioForm.get('password')?.errors?.required &&
           novoUsuarioForm.get('password')?.touched"

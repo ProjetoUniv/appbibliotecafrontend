@@ -6,13 +6,15 @@ import { BuscarLivrosComponent } from './buscar-livros/buscar-livros.component';
 import { SharedModule } from './../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [BuscarLivrosComponent],
   imports: [
     CommonModule,
     LivrosRoutingModule,
-    SharedModule
+    SharedModule,
+    MatSidenavModule
   ]
 })
 export class LivrosModule { }

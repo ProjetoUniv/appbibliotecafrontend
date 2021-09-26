@@ -87,7 +87,7 @@ h2.active {
 }
 
 .btn {
-  background-color: #50a2eedf;
+  background-color: #56baed;
   border: none;
   color: white;
   padding: 15px 80px;
@@ -106,6 +106,10 @@ h2.active {
   -ms-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+}
+
+.btn:hover{
+  background-color: #262679df;
 }
 
 .passwordLabel{

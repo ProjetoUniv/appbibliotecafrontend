@@ -1,3 +1,5 @@
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { AutenticacaoService } from './../../autenticacao/autenticacao.service';
 import { Router } from '@angular/router';
 import { NovoUsuarioService } from './../novo-usuario/novo-usuario.service';
 import { Component, OnInit } from '@angular/core';
@@ -8,10 +10,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
   email = '';
   password = '';
 
-  constructor(private service: NovoUsuarioService, private router: Router) {}
+  constructor(private service: NovoUsuarioService,
+    private router: Router, private formBuilder: FormBuilder,
+    private authService: AutenticacaoService) {}
 
   ngOnInit(): void {}
 

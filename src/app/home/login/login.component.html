@@ -4,21 +4,26 @@
     <div id="formContent">
       <form class="form mt-4"  (ngSubmit)="login()" #loginForm="ngForm">
         <input type="text" id="login"  name="login"
-        placeholder="E-mail" [(ngModel)]="email"
+        placeholder="E-mail" [(ngModel)]="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
         #campoEmail="ngModel" required/>
         <app-mensagem
       *ngIf="campoEmail.invalid && campoEmail.touched"
       mensagem="Email obrigatório"
-    >
+     >
   </app-mensagem>
-        <input type="password" id="password" class="passwordLabel"
+  <app-mensagem
+      *ngIf="campoEmail.errors?.pattern"
+      mensagem="Email inválido"
+    >
+    </app-mensagem>
+        <input type="password" id="password" maxlength="6"  class="passwordLabel"
         name="password" placeholder="Senha"  [(ngModel)]="password"
         #campoPassword="ngModel" required/>
         <app-mensagem
         *ngIf="campoPassword.invalid && campoPassword.touched"
         mensagem="Senha obrigatória">
       </app-mensagem>
-        <input type="submit"  value="Entrar"/>
+        <input type="submit" value="Entrar"/>
       </form>
 
       <!-- Remind Passowrd -->
