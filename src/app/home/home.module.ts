@@ -1,3 +1,7 @@
+
+
+import { CabecalhoModule } from './../componentes/cabecalho/cabecalho.module';
+import { AutenticacaoService } from './login/autenticacao.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,13 +13,15 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [HomeComponent, LoginComponent,NovoUsuarioComponent],
+  declarations: [HomeComponent, NovoUsuarioComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    CabecalhoModule,
   ],
+  providers:[AutenticacaoService],
   exports: [HomeComponent],
 })
 export class HomeModule { }

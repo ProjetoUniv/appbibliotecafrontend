@@ -10,10 +10,6 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       {
-        path: '',
-        component: LoginComponent
-      },
-      {
         path: 'novousuario',
         component: NovoUsuarioComponent
       },

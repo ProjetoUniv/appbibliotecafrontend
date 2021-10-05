@@ -1,21 +1,22 @@
-import { NgModule } from '@angular/core';
+import { NovoUsuarioComponent } from './home/novo-usuario/novo-usuario.component';
+import { LoginComponent } from './home/login/login.component';
+import { HomeComponent } from './home/home.component';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'home',
-  },
-  {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+        path: 'novousuario',
+        component: NovoUsuarioComponent
   },
   {
     path: 'livros',
     loadChildren: () => import('./home/livros/livros.module').then((m) => m.LivrosModule),
-  },
-];
+ }
+
+]
+
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

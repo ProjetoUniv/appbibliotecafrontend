@@ -1,0 +1,73 @@
+
+        <div class="container">
+            <mat-card class="mt-5 mat-elevation-z10">
+             <form [formGroup]="bookForm" enctype="multipart/form-data" (submit)="cadastrar()">
+              <div class="row offset-md-4">
+                <mat-card-title >Cadastro de Livros </mat-card-title>
+              </div>
+              <div class="row d-flex justify-content-center">
+                  <div class="col-md-4">
+                    <div class=" mt-5 d-flex justify-content-center" *ngIf="!mostrarImagem">
+                      <img src="assets/images/upload.png" height="200" width="200"/>
+                      </div>
+                  <div class=" mt-5 d-flex justify-content-center" *ngIf="mostrarImagem">
+                    <img [src]="imgUrl" height="350" width="350"/>
+                    </div>
+                    <div class="mt-3 d-flex justify-content-center">
+                    <input type="file" name="file" id="image" formControlName="image"
+                    accept="image/*" (change)="gravarArquivos($event.target)"/>
+                  </div>
+                </div>
+                  <div class="col-md-8 d-flex justify-content-center">
+                        <div class="form-group mt-5">
+                          <label>Titulo do Livro</label>
+                          <input class="form-control mb-3" type="text" name="title" formControlName="title"/>
+                          <app-mensagem
+                          *ngIf="bookForm.get('title')?.errors?.required &&
+                          bookForm.get('title')?.touched"
+                          mensagem="Titulo do livro obrigatório"
+                        >
+                        </app-mensagem>
+                          <label>Nome do Autor</label>
+                          <input class="form-control mb-3" type="text" name="author" formControlName="author"/>
+                          <app-mensagem
+                          *ngIf="bookForm.get('author')?.errors?.required &&
+                          bookForm.get('author')?.touched"
+                          mensagem="Nome do Autor obrigatório"
+                        >
+                        </app-mensagem>
+                          <label>Editora</label>
+                          <input class="form-control mb-3" type="text" name="company" formControlName="company"/>
+                          <app-mensagem
+                          *ngIf="bookForm.get('company')?.errors?.required &&
+                          bookForm.get('company')?.touched"
+                          mensagem="Editora obrigatório"
+                        >
+                        </app-mensagem>
+                          <label>Lugar Estante</label>
+                          <input class="form-control mb-3" type="text" name="positionShelf" formControlName="positionShelf"/>
+                          <app-mensagem
+                          *ngIf="bookForm.get('positionShelf')?.errors?.required &&
+                          bookForm.get('positionShelf')?.touched"
+                          mensagem="Lugar do livro na estante obrigatório"
+                        >
+                        </app-mensagem>
+                          <label>Faixa Etária</label>
+                          <input class="form-control mb-3" type="text" name="ageGroup" formControlName="ageGroup"/>
+                          <label>Descrição do Livro</label>
+                          <br>
+                          <textarea cols="80" maxlength="300" rows="8" name="description" class="form-control" formControlName="description"></textarea>
+                          <app-mensagem
+                           *ngIf="!!bookForm.get('description')?.errors?.maxLength"
+                            mensagem="Tamanho maximo do campo é de 300 caracteres"
+                          >
+                          </app-mensagem>
+                          <div class="mt-3 d-flex justify-content-center">
+                            <button class="btn btn-primary" [disabled]="bookForm.invalid"> CADASTRAR</button>
+                          </div>
+                          </div>
+                  </div>
+              </div>
+              </form>
+            </mat-card>
+          </div>

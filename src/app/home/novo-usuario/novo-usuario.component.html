@@ -23,7 +23,7 @@
           </app-mensagem>
           <app-mensagem
           *ngIf="novoUsuarioForm.get('email')?.errors?.email &&
-          novoUsuarioForm.get('email')?.touched || novoUsuarioForm.get('email')?.errors?.email.pattern"
+          novoUsuarioForm.get('email')?.touched || novoUsuarioForm.get('email')?.errors?.pattern"
           mensagem="E-mail no formato incorreto"
           >
           </app-mensagem>

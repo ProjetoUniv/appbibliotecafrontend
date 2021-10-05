@@ -2,9 +2,8 @@
 <div class="wrapper">
   <img src="assets/images/livros.png" alt="">
     <div id="formContent">
-      <form class="form mt-4"  (ngSubmit)="login()" #loginForm="ngForm">
-        <input type="text" id="login"  name="login"
-        placeholder="E-mail" [(ngModel)]="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+      <form class="form mt-4" (ngSubmit)="login(users)" #loginForm="ngForm">
+        <input type="text" id="email" placeholder="E-mail" name="email" [(ngModel)]="users.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
         #campoEmail="ngModel" required/>
         <app-mensagem
       *ngIf="campoEmail.invalid && campoEmail.touched"
@@ -17,13 +16,13 @@
     >
     </app-mensagem>
         <input type="password" id="password" maxlength="6"  class="passwordLabel"
-        name="password" placeholder="Senha"  [(ngModel)]="password"
+        name="password" placeholder="Senha"  [(ngModel)]="users.password"
         #campoPassword="ngModel" required/>
         <app-mensagem
         *ngIf="campoPassword.invalid && campoPassword.touched"
         mensagem="Senha obrigatória">
       </app-mensagem>
-        <input type="submit" value="Entrar"/>
+        <input type="submit" value="Entrar"  [disabled]="loginForm.invalid"/>
       </form>
 
       <!-- Remind Passowrd -->

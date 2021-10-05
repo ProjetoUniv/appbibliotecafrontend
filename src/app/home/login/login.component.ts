@@ -1,8 +1,11 @@
+
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AutenticacaoService } from './../../autenticacao/autenticacao.service';
+import { AutenticacaoService } from './autenticacao.service';
 import { Router } from '@angular/router';
 import { NovoUsuarioService } from './../novo-usuario/novo-usuario.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { Usuario } from './usuario/usuario';
+
 
 @Component({
   selector: 'app-login',
@@ -10,7 +13,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  loginForm!: FormGroup;
+
+public users: Usuario = new Usuario();
+
+ mostrarCabecalho: boolean = false;
+
   email = '';
   password = '';
 
@@ -20,25 +27,18 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  login() {
-    if (this.email == '') {
+  login(users: Usuario) {
+    if (users.email == '') {
       this.service.message('Campo email é obrigatório');
       return;
     }
 
-    if (this.password == '') {
+    if (users.password == '') {
       this.service.message('Campo senha é obrigatório');
       return;
     }
 
-    this.service
-      .verificaEmaileSenhaExistente(this.email, this.password)
-      .subscribe((resposta) => {
-        if (resposta == true) {
-          this.router.navigate(['livros']);
-        } else {
-          this.service.message('Dados Inválidos');
-        }
-      });
+    this.authService.autenticar(users);
+
   }
 }
