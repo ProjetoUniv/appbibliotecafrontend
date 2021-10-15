@@ -1,0 +1,23 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.cardTitle{
+  width: 100%;
+}
+
+button{
+  margin-left: 5px;
+
+}
+
+.tableHeaderCellDiv {
+  resize: horizontal;
+  overflow:hidden;
+}
+

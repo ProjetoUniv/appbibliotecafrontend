@@ -9,11 +9,11 @@ import { EventEmitter, Injectable } from '@angular/core';
 })
 export class AutenticacaoService {
 
- usuarioAutenticado: boolean = false;
+private usuarioAutenticado: boolean = false;
 
   enable: boolean = false;
 
-  mostrarMenuEmitter : EventEmitter<boolean> = new EventEmitter();
+  mostrarMenuEmitter = new EventEmitter<boolean>();
 
   constructor(private httpClient: HttpClient,
     private usuarioService: NovoUsuarioService,

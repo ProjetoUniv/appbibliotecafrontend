@@ -1,8 +1,10 @@
+import { Usuario } from './../login/usuario/usuario';
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http'
 import { environment } from 'src/environments/environment';
 import { NovoUsuario } from './novo-usuario';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BehaviorSubject } from 'rxjs';
 
 
 const API = environment.apiUrl;
@@ -22,6 +24,7 @@ export class NovoUsuarioService {
     return this.http.get(`${API}/bibliotecainfantil/usuarios/email/${email}`)
   }
 
+
   verificaEmaileSenhaExistente(email: string, password: string){
     return this.http.get(`${API}/bibliotecainfantil/usuarios/email/${email}/password/${password}`)
   }
@@ -33,4 +36,6 @@ export class NovoUsuarioService {
       duration: 4000
     })
    }
+
+
 }

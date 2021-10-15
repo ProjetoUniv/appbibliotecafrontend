@@ -1,8 +1,9 @@
 import { Router } from '@angular/router';
 import { LivrosService } from './../livros.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Livros } from '../livros';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cadastro-livros',
@@ -12,11 +13,14 @@ import { Livros } from '../livros';
 export class CadastroLivrosComponent implements OnInit {
 
 bookForm!: FormGroup;
-file! : File;
+books!: Livros;
+file? : File;
 imgUrl: any;
 mostrarImagem: boolean = false;
+imageUrl?: any | string;
 
-  constructor(private formBuilder: FormBuilder,
+
+  constructor(private formBuilder: FormBuilder, private sant: DomSanitizer,
     private livroService: LivrosService, private router: Router) { }
 
   ngOnInit(): void {
@@ -27,9 +31,11 @@ mostrarImagem: boolean = false;
       ageGroup: [''],
       positionShelf: ['', [Validators.required]],
       description: ['', [Validators.required, Validators.maxLength(300)]],
+      isbn: ['', [Validators.required]],
+      amount: [''],
       image: ['', [Validators.required]],
-    });
-  }
+      })
+    };
 
   cadastrar(){
     if(this.bookForm.invalid){
@@ -37,20 +43,16 @@ mostrarImagem: boolean = false;
     }
 
     const novoBook = this.bookForm.getRawValue() as Livros;
+    novoBook.nameImage = this.imageUrl;
 
-    let booksLivros = "livro";
-    let bookName = this.file.name;
-
-    let nameImage = booksLivros.concat(bookName.toString());
-
-    this.livroService.verificaLivroExistente(novoBook.title, nameImage).subscribe((resposta) => {
+    this.livroService.verificaLivroExistente(novoBook.isbn).subscribe((resposta) => {
       if(resposta==true){
-        this.livroService.message("Livro/Imagem já cadastrado no sistema");
+        this.livroService.message("Livro já cadastrado no sistema");
         return;
       }else{
         this.livroService.cadastrarLivros(novoBook, this.file).subscribe(() => {
           this.livroService.message("Livro Cadastrado com sucesso!");
-          this.router.navigate(['']);
+          this.router.navigate(['livros']);
         })
       }
 
@@ -61,15 +63,45 @@ mostrarImagem: boolean = false;
 
   }
 
-
-  gravarArquivos(arquivo: any): void{
-    const [file] = arquivo?.files;
-    this.file = file;
+  onSelectNewFile(elemnt: any | HTMLInputElement): void{
+    if(elemnt.files?.length == 0)return;
+    this.file = (elemnt.files as FileList)[0];
+    this.imageUrl = this.sant.bypassSecurityTrustHtml(window.URL.createObjectURL(this.file)) as string;
+    console.log(this.imageUrl);
     const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (event:any) => (
-     this.imgUrl = reader.result,
-     this.mostrarImagem = true
+    reader.readAsDataURL(this.file as Blob);
+    reader.onloadend = () => {
+    this.imageUrl = reader.result;
+    console.log(this.imageUrl);
+    this.mostrarImagem = true;
 
-    )}
+    }
+
+
+  }
+
+
+    gravarArquivosCopia(arquivo: any): void{
+      const [file] = arquivo?.files;
+      this.file = file;
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event:any) => (
+       this.imgUrl = reader.result,
+       this.mostrarImagem = true
+
+      )}
+
+    realizaConsultaIsbn(){
+
+      const novoBook = this.bookForm.getRawValue() as Livros;
+
+      this.livroService.verificaLivroExistente(novoBook.isbn).subscribe((resposta) => {
+        if(resposta == true){
+          this.livroService.message("ISBN já cadastrado no sistema");
+          return;
+        }
+      })
+
+    }
 }

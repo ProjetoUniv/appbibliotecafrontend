@@ -1,8 +1,10 @@
-import { LivrosComponent } from './livros.component';
-import { CadastroLivrosComponent } from './cadastro-livros/cadastro-livros.component';
-import { BuscarLivrosComponent } from './buscar-livros/buscar-livros.component';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+
+import { DetalheLivrosComponent } from './../livros/detalhe-livros/detalhe-livros.component';
+import { AlterarLivrosComponent } from './alterar-livros/alterar-livros.component';
+import { BuscarLivrosComponent } from './buscar-livros/buscar-livros.component';
+import { CadastroLivrosComponent } from './cadastro-livros/cadastro-livros.component';
 
 const routes: Routes = [
   {
@@ -10,9 +12,17 @@ const routes: Routes = [
     component: BuscarLivrosComponent,
   },
   {
-    path: 'cadastro-livros',
-    component: CadastroLivrosComponent,
+        path: 'cadastro-livros',
+        component: CadastroLivrosComponent,
   },
+  {
+        path: 'detalhes-livros/:id',
+        component: DetalheLivrosComponent
+ },
+ {
+        path: 'alterar-livros/:id',
+        component: AlterarLivrosComponent
+  }
 
 ];
 

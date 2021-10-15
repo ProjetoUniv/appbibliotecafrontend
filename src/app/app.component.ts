@@ -14,7 +14,6 @@ mostrarMenu: boolean = false;
 constructor(private authService: AutenticacaoService){}
 
 ngOnInit(){
-
   this.authService.mostrarMenuEmitter.subscribe(
     mostrar => this.mostrarMenu = mostrar
   );
