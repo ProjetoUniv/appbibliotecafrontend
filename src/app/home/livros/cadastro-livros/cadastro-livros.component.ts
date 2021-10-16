@@ -50,7 +50,7 @@ imageUrl?: any | string;
         this.livroService.message("Livro já cadastrado no sistema");
         return;
       }else{
-        this.livroService.cadastrarLivros(novoBook, this.file).subscribe(() => {
+        this.livroService.cadastrarLivros(novoBook).subscribe(() => {
           this.livroService.message("Livro Cadastrado com sucesso!");
           this.router.navigate(['livros']);
         })

@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { LivrosService } from '../livros.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AlertModalService } from 'src/app/shared/alert-modal.service';
 
 @Component({
   selector: 'app-alterar-livros',
@@ -23,7 +24,7 @@ export class AlterarLivrosComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router, private sant: DomSanitizer,
-    private livroService: LivrosService, private fb: FormBuilder) {this.criarFormBranco() }
+    private livroService: LivrosService, private fb: FormBuilder,  private dialogService: AlertModalService) {this.criarFormBranco() }
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params['id'];
@@ -44,14 +45,20 @@ export class AlterarLivrosComponent implements OnInit {
 
     const novoBook = this.bookForm.getRawValue() as Livros;
     novoBook.nameImage = this.imageUrl;
+    novoBook.id = this.id;
 
-      this.livroService.atualizarLivro(novoBook, this.file).subscribe(() => {
-      this.livroService.message("Livro atualizado com sucesso!");
-      this.router.navigate(['livros']);
-        },(error) => {
-          console.log(console.error());
+      this.dialogService.openConfirmDialog("Deseja alterar esse livro?").afterClosed().subscribe( resp => {
+        if(resp){
+          this.livroService.atualizarLivro(novoBook).subscribe(() => {
+            this.livroService.message("Livro atualizado com sucesso!");
+            this.router.navigate(['livros']);
+        }
+          )
+      }
+    }, (error) => {
+      console.log(error);
+    })
 
-        });
     }
 
     criaForm(books: Livros){
@@ -85,13 +92,12 @@ export class AlterarLivrosComponent implements OnInit {
     onSelectNewFile(elemnt: any | HTMLInputElement): void{
       if(elemnt.files?.length == 0)return;
       this.file = (elemnt.files as FileList)[0];
-      this.imageUrl = this.sant.bypassSecurityTrustHtml(window.URL.createObjectURL(this.file)) as string;
+      this.imageUrl = this.sant.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(this.file)) as string;
       console.log(this.imageUrl);
       const reader = new FileReader();
       reader.readAsDataURL(this.file as Blob);
       reader.onloadend = () => {
       this.imageUrl = reader.result;
-      console.log(this.imageUrl);
       this.mostrarImagem = true;
     }}
 

@@ -1,3 +1,6 @@
+
+import { AlertModalService } from './shared/alert-modal.service';
+import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +15,8 @@ import { AutenticacaoService } from './home/login/autenticacao.service';
 import { LoginComponent } from './home/login/login.component';
 import { NovoUsuarioComponent } from './home/novo-usuario/novo-usuario.component';
 import { SharedModule } from './shared/shared.module';
+import { DialogComponent } from './componentes/dialog/dialog.component';
+import { LivrosService } from './home/livros/livros.service';
 
 
 @NgModule({

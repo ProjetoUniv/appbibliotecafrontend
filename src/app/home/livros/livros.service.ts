@@ -21,15 +21,8 @@ export  class LivrosService {
 
   }
 
-  cadastrarLivros(livros: Livros, selectedImage?: File): Observable<Livros>{
-    let observables = of({});
-
-  return observables.pipe(
-    switchMap(() => {
-      return this.http.post<Livros>(`${API}/bibliotecainfantil/livrosbiblioteca`, livros);
-    })
-  )
-
+  cadastrarLivros(livros: Livros): Observable<Livros>{
+    return this.http.post<Livros>(`${API}/bibliotecainfantil/livrosbiblioteca`, livros);
   }
 
   verificaLivroExistente(isbn: string){
@@ -55,41 +48,13 @@ export  class LivrosService {
     return this.http.get<Livros>(url);
    }
 
-   atualizarLivro(livros: Livros,selectedImage?: File ): Observable<Livros>{
 
-    let observables = of({});
+   atualizarLivro(livros: Livros): Observable<Livros>{
+      return this.http.put<Livros>(`${API}/bibliotecainfantil/livrosbiblioteca`, livros)
+   }
 
-    if(selectedImage){
-      observables = observables.pipe(
-        switchMap(() => {
-
-          if(livros.nameImage){
-            return this.http.delete(`${API}/bibliotecainfantil/images/${livros.nameImage}`);
-          }else{
-            return of({});
-          }
-        }),
-
-        switchMap(() => {
-          livros.nameImage = selectedImage.name;
-
-          const formData: FormData = new FormData();
-          formData.append('pid', livros.nameImage);
-          formData.append('file', selectedImage);
-
-          return this.http.post(`${API}/bibliotecainfantil/images/`, formData, {
-            responseType: 'text'
-        })
-      })
-      );
-    }
-
-  return observables.pipe(
-    switchMap(() => {
-      return this.http.put<Livros>(`${API}/bibliotecainfantil/livrosbiblioteca`, livros);
-    })
-  )
-
+   deletarLivros(id: any): Observable<Livros>{
+    return this.http.delete<Livros>(`${API}/bibliotecainfantil/livrosbiblioteca/deletarlivro/${id}`);
    }
 
 

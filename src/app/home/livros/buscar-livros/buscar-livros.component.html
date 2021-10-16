@@ -14,7 +14,7 @@
     </mat-toolbar>
 
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" matSort>
+  <table *ngIf="show" mat-table [dataSource]="dataSource" matSort>
 
 <!-- isbn Column -->
 <ng-container matColumnDef="isbn">
@@ -49,10 +49,9 @@
           <button color="primary" mat-mini-fab (click)="abrirAlterar(book.id)" aria-label="Alterar">
           <mat-icon>create</mat-icon>
           </button>
-          <button color="primary" mat-mini-fab  aria-label="Deletar">
+          <button color="primary" mat-mini-fab  aria-label="Deletar" (click)="excluir(book.id)">
             <mat-icon>delete</mat-icon>
             </button>
-
         </td>
       </ng-container>
 
@@ -68,6 +67,13 @@
 <div class="text-center" *ngIf="dataSource == null">
   <h3>Não foram encontrados Registros!</h3>
 </div>
-
 </div>
+
+<ng-template #deleteModal>
+  <div class="modal-body text-center">
+    <p>Você deseja excluir esse livro?</p>
+    <button type="button" class="btn btn-default">Sim</button>
+    <button type="button" class="btn btn-primary">Não</button>
+  </div>
+</ng-template>
 
