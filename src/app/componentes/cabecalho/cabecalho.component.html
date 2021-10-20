@@ -1,12 +1,17 @@
-
 <mat-toolbar color="primary">
-      <a mat-button [matMenuTriggerFor]="menu">
-          <mat-icon class="menuIcon">menu</mat-icon>
-      </a>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item [routerLink]="['livros', 'cadastro-livros']">Cadastrar Livro</button>
-        <button mat-menu-item [routerLink]="['']">Sair</button>
-      </mat-menu>
-      <span>Sistema de Gestão de Livros</span>
+  <a mat-button [matMenuTriggerFor]="menu">
+    <mat-icon class="menuIcon">menu</mat-icon>
+  </a>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item [routerLink]="['livros', 'cadastro-livros']">
+      Cadastrar Livro
+    </button>
+    <button mat-menu-item [routerLink]="['']">Sair</button>
+  </mat-menu>
+  <span>Sistema de Gestão de Livros</span>
+  <div class="exit">
+    <a>
+    <mat-icon>exit_to_app</mat-icon>
+  </a>
+    </div>
 </mat-toolbar>
-

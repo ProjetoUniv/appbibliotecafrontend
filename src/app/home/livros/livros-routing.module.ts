@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from 'src/app/guards/auth-guard';
 
 import { DetalheLivrosComponent } from './../livros/detalhe-livros/detalhe-livros.component';
 import { AlterarLivrosComponent } from './alterar-livros/alterar-livros.component';
@@ -10,6 +11,7 @@ const routes: Routes = [
   {
     path: '',
     component: BuscarLivrosComponent,
+    canActivate: [AuthGuard]
   },
   {
         path: 'cadastro-livros',

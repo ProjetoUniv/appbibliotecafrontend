@@ -1,58 +1,59 @@
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { AlertModalService } from './../../../shared/alert-modal.service';
-import { Router } from '@angular/router';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
-
-import { Livros } from './../livros';
-import { LivrosService } from './../livros.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { DialogComponent } from 'src/app/componentes/dialog/dialog.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+
+import { Livros } from '../../../models/livros';
+import { AlertModalService } from './../../../shared/alert-modal.service';
+import { LivrosService } from '../../../services/livros.service';
 
 @Component({
   selector: 'app-buscar-livros',
   templateUrl: './buscar-livros.component.html',
   styleUrls: ['./buscar-livros.component.css']
 })
-export class BuscarLivrosComponent implements AfterViewInit {
+export class BuscarLivrosComponent {
 
- show: boolean = false;
- mensagem = "Deseja excluir este livro ?";
- livros: Livros[] = [];
- displayedColumns: string [] =  ['isbn','title','author','company', 'actions'];
- dataSource = new MatTableDataSource<Livros>();
+  show: boolean = false;
+  livros!: Livros[];
+  livrosEmpty: boolean = false;
+  displayedColumns: string[] = ['isbn', 'title', 'author', 'company', 'actions'];
+  dataSource!: MatTableDataSource<Livros>;
 
 
-@ViewChild(MatPaginator) paginator!: MatPaginator;
-@ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
 
   constructor(private livroService: LivrosService, private router: Router,
-    private dialogService: AlertModalService){
-    this.livros = [];
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
-  ngOnInit(): void {
+    private dialogService: AlertModalService) {
     this.getAllBooks();
-    this.show = true;
   }
 
-  getAllBooks(){
-    this.livroService.getallBooks().subscribe(resposta => this.dataSource.data=resposta as Livros []);
+  getAllBooks() {
+    this.livroService.getallBooks().subscribe((data: Livros[]) => {
+      this.livros = data;
+      this.dataSource = new MatTableDataSource(data);
+      if (this.dataSource.data.length < 1) {
+        this.livrosEmpty = false;
+        this.show = false;
+        return;
+      }
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.livrosEmpty = true;
+      this.show = true;
+
+    })
   }
 
-  abrirDetalhes(id: number){
+  abrirDetalhes(id: number) {
     this.router.navigate([`/livros/detalhes-livros/${id}`]);
 
   }
 
-  abrirAlterar(id: number){
+  abrirAlterar(id: number) {
     this.router.navigate([`/livros/alterar-livros/${id}`]);
 
   }
@@ -67,23 +68,23 @@ export class BuscarLivrosComponent implements AfterViewInit {
 
   }
 
-  excluir(id: any){
+  excluir(id: any) {
     this.dialogService.openConfirmDialog("Você deseja excluir esse livro ?")
-    .afterClosed().subscribe((resp) => {
-     if(resp == true){
-       this.livroService.deletarLivros(id).subscribe(() => {
-        this.livroService.message("Livro excluido com sucesso!");
-        this.getAllBooks();
-        this.show = false;
-        setTimeout(() => {
-          this.show = true;
-          this.getAllBooks()
-        }, 100);
-       })
-     }
-    }, (error) => {
-      console.log(error);
-    });
+      .afterClosed().subscribe((resp) => {
+        if (resp == true) {
+          this.livroService.deletarLivros(id).subscribe(() => {
+            this.livroService.message("Livro excluido com sucesso!");
+            this.getAllBooks();
+            this.show = false;
+            setTimeout(() => {
+              this.show = true;
+              this.getAllBooks()
+            }, 100);
+          })
+        }
+      }, (error) => {
+        console.log(error);
+      });
   }
 
 

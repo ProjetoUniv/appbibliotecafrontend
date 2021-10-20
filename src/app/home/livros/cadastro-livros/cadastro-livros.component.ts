@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
-import { LivrosService } from './../livros.service';
+import { LivrosService } from '../../../services/livros.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { Livros } from '../livros';
+import { Livros } from '../../../models/livros';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -67,12 +67,10 @@ imageUrl?: any | string;
     if(elemnt.files?.length == 0)return;
     this.file = (elemnt.files as FileList)[0];
     this.imageUrl = this.sant.bypassSecurityTrustHtml(window.URL.createObjectURL(this.file)) as string;
-    console.log(this.imageUrl);
     const reader = new FileReader();
     reader.readAsDataURL(this.file as Blob);
     reader.onloadend = () => {
     this.imageUrl = reader.result;
-    console.log(this.imageUrl);
     this.mostrarImagem = true;
 
     }

@@ -1,9 +1,9 @@
 
-import { Livros } from './../livros';
+import { Livros } from '../../../models/livros';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LivrosService } from '../livros.service';
+import { LivrosService } from '../../../services/livros.service';
 
 
 @Component({

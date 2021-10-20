@@ -1,8 +1,8 @@
-import { Livros } from './../livros';
+import { Livros } from '../../../models/livros';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LivrosService } from '../livros.service';
+import { LivrosService } from '../../../services/livros.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertModalService } from 'src/app/shared/alert-modal.service';
 
@@ -28,13 +28,15 @@ export class AlterarLivrosComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params['id'];
-    this.livroService.getLivroById(this.id).subscribe((data: Livros) =>{
-    this.urlImage = data.nameImage;
-    this.imageUrl = this.urlImage
-    this.criaForm(data);
 
-     });
-
+    this.livroService.getLivroById(this.id).subscribe(
+          data => {
+            this.urlImage = data.nameImage;
+            this.imageUrl = this.urlImage
+            this.criaForm(data);
+          },
+          error => this.router.navigate(['livros'])
+     );
   }
 
   atualizar(){

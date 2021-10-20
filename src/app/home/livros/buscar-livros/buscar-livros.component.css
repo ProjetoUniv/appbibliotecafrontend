@@ -7,17 +7,32 @@ table {
   width: 100%;
 }
 
-.cardTitle{
+.cardTitle {
   width: 100%;
 }
 
-button{
+button {
   margin-left: 5px;
 
 }
 
 .tableHeaderCellDiv {
   resize: horizontal;
-  overflow:hidden;
+  overflow: hidden;
 }
 
+h1 {
+  font-weight: bolder;
+  margin-top: 15px;
+  color: blue;
+}
+
+.cadastro {
+  width: 200px;
+  display: flex;
+  border-radius: 0;
+}
+
+.cad {
+  margin-top: 15px;
+}

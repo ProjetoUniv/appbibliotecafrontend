@@ -1,8 +1,8 @@
-import { NovoUsuarioService } from 'src/app/home/novo-usuario/novo-usuario.service';
-import { AutenticacaoService } from './../../home/login/autenticacao.service';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router'
-import { BreakpointObserver } from '@angular/cdk/layout';
+import { Usuario } from './../../models/usuario';
+import { Livros } from './../../models/livros';
+import { SecurityService } from './../../util/security.service';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { NovoUsuarioService } from 'src/app/services/novo-usuario.service';
 
 @Component({
   selector: 'app-cabecalho',
@@ -10,6 +10,8 @@ import { BreakpointObserver } from '@angular/cdk/layout';
   styleUrls: ['./cabecalho.component.css']
 })
 export class CabecalhoComponent {
+
+  user$ = this.novoUsuarioService.retornaUsuario();
 
   @Output() public sidenavToggle = new EventEmitter();
 
@@ -20,7 +22,12 @@ export class CabecalhoComponent {
     }
 
  ngOnInit(){
+  this.novoUsuarioService
 
+ }
+
+ logout(){
+   SecurityService.clear();
  }
 
 }

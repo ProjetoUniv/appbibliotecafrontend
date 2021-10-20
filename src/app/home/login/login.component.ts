@@ -1,10 +1,11 @@
-
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { AutenticacaoService } from './autenticacao.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NovoUsuarioService } from './../novo-usuario/novo-usuario.service';
-import { Component, Input, OnInit, Output } from '@angular/core';
-import { Usuario } from './usuario/usuario';
+
+import { Usuario } from '../../models/usuario';
+import { AuthService } from '../../services/auth.service';
+import { NovoUsuarioService } from '../../services/novo-usuario.service';
+
 
 
 @Component({
@@ -23,7 +24,7 @@ public users: Usuario = new Usuario();
 
   constructor(private service: NovoUsuarioService,
     private router: Router, private formBuilder: FormBuilder,
-    private authService: AutenticacaoService) {}
+    private authService: AuthService) {}
 
   ngOnInit(): void {}
 
@@ -38,7 +39,28 @@ public users: Usuario = new Usuario();
       return;
     }
 
+
     this.authService.autenticar(users);
 
-  }
+     // const result = this.service.verificaEmaileSenhaExistente(users.email, users.password).subscribe(
+      //  result => {
+          //if(result){
+         //   this.setUser(users);
+         // }
+         // else{
+          //  this.service.message('Dados inválidos');
+        //  }
+      //  },
+      //  error => console.log(error)
+    //  )
+
+ // }
+
+//setUser(user: string | any){
+//SecurityService.set(user);
+//console.log(user);
+//this.router.navigate(['livros']);
+
+}
+
 }

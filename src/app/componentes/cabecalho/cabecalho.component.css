@@ -29,6 +29,7 @@ mat-toolbar {
 a {
   text-decoration: none;
   color: white;
+  cursor: pointer;
 }
 
 a:hover, a:active{
@@ -52,4 +53,8 @@ margin-left: 15px;
 
 matMenu {
 margin-left: 5px;
+}
+
+.exit {
+  margin-left:500px;
 }

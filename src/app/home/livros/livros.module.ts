@@ -24,7 +24,7 @@ import { BuscarLivrosComponent } from './buscar-livros/buscar-livros.component';
 import { CadastroLivrosComponent } from './cadastro-livros/cadastro-livros.component';
 import { LivrosRoutingModule } from './livros-routing.module';
 import { LivrosComponent } from './livros.component';
-import { LivrosService } from './livros.service';
+import { LivrosService } from '../../services/livros.service';
 
 
 @NgModule({

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NovoUsuarioService } from 'src/app/home/novo-usuario/novo-usuario.service';
-import { NovoUsuario } from './novo-usuario';
+import { NovoUsuarioService } from 'src/app/services/novo-usuario.service';
+import { NovoUsuario } from '../../models/novo-usuario';
 
 @Component({
   selector: 'app-novo-usuario',
