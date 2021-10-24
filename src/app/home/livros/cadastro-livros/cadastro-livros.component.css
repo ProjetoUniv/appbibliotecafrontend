@@ -17,4 +17,37 @@ a {
   height: 100vh;
 }
 
+.close {
+  border-radius: 0;
+  margin-left: 10px;
+}
+
+.btnCadastro{
+  border-radius: 0 !important;
+}
+
+
+@media (max-width: 600px) and (min-width: 300px)
+{
+  .cardContainer {
+    width: 100%;
+   }
+
+   .btnCadastro{
+    width: 100%;
+  }
+
+  .close {
+    width: 100%
+  }
+
+  .formContainer{
+  width: 100%;
+    }
+
+    .image {
+     max-width: 100%;
+    }
+
+}
 

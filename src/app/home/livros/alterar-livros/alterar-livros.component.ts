@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LivrosService } from '../../../services/livros.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertModalService } from 'src/app/shared/alert-modal.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-alterar-livros',
@@ -21,6 +22,7 @@ export class AlterarLivrosComponent implements OnInit {
   mostrarImagem: boolean = false;
   urlImage: any;
   imageUrl?: any | string;
+  inscricao!: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router, private sant: DomSanitizer,
@@ -28,6 +30,12 @@ export class AlterarLivrosComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params['id'];
+
+    this.inscricao = this.activatedRoute.params.subscribe(
+      (params: any) => {
+        this.id = params['id'];
+      }
+    );
 
     this.livroService.getLivroById(this.id).subscribe(
           data => {
@@ -131,6 +139,10 @@ export class AlterarLivrosComponent implements OnInit {
 
     voltar(){
       this.router.navigate(['livros']);
+    }
+
+    ngOnDestroy(){
+      this.inscricao.unsubscribe();
     }
 
 }

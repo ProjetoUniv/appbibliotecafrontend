@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SecurityService } from 'src/app/util/security.service';
 
 import { Usuario } from '../../models/usuario';
 import { AuthService } from '../../services/auth.service';
@@ -15,18 +16,18 @@ import { NovoUsuarioService } from '../../services/novo-usuario.service';
 })
 export class LoginComponent implements OnInit {
 
-public users: Usuario = new Usuario();
+  public users: Usuario = new Usuario();
 
- mostrarCabecalho: boolean = false;
+  mostrarCabecalho: boolean = false;
 
   email = '';
   password = '';
 
   constructor(private service: NovoUsuarioService,
     private router: Router, private formBuilder: FormBuilder,
-    private authService: AuthService) {}
+    private authService: AuthService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   login(users: Usuario) {
     if (users.email == '') {
@@ -40,27 +41,29 @@ public users: Usuario = new Usuario();
     }
 
 
-    this.authService.autenticar(users);
+    const result = this.service.verificaEmaileSenhaExistente(users.email, users.password).subscribe(
+      result => {
+        if (result) {
+          this.setUser(users);
+        }
+        else {
+          this.service.message('Dados inválidos');
+        }
+      },
+      error => console.log(error)
+    )
 
-     // const result = this.service.verificaEmaileSenhaExistente(users.email, users.password).subscribe(
-      //  result => {
-          //if(result){
-         //   this.setUser(users);
-         // }
-         // else{
-          //  this.service.message('Dados inválidos');
-        //  }
-      //  },
-      //  error => console.log(error)
-    //  )
+  }
 
- // }
+  setUser(user: string | any) {
+    SecurityService.set(user);
+    //console.log(user);
+    this.router.navigate(['/livros']);
 
-//setUser(user: string | any){
-//SecurityService.set(user);
-//console.log(user);
-//this.router.navigate(['livros']);
+  }
 
-}
+  cadastrarUsuario() {
+    this.router.navigate(['novousuario']);
+  }
 
 }

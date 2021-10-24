@@ -1,10 +1,9 @@
 <div class="container">
-  <mat-card class="mt-5 mat-elevation-z10">
-    <form
+  <mat-card class="mt-5 mat-elevation-z10 cardContainer">
+    <form class="formContainer"
       [formGroup]="bookForm"
       enctype="multipart/form-data"
-      (submit)="cadastrar()"
-    >
+      (submit)="cadastrar()">
       <div class="row offset-md-4">
         <mat-card-title>Cadastro de Livros </mat-card-title>
       </div>
@@ -16,7 +15,7 @@
           >
             <img src="assets/images/upload.png" height="200" width="200" />
           </div>
-          <div class="mt-5 d-flex justify-content-center" *ngIf="mostrarImagem">
+          <div class="mt-5 d-flex justify-content-center image" *ngIf="mostrarImagem">
             <img [src]="imageUrl" height="350" width="350" />
           </div>
           <div class="mt-3 d-flex justify-content-center">
@@ -143,7 +142,7 @@
             <br />
             <textarea
               cols="80"
-              maxlength="500"
+              maxlength="3000"
               rows="8"
               name="description"
               class="form-control"
@@ -151,12 +150,15 @@
             ></textarea>
             <app-mensagem
               *ngIf="!!bookForm.get('description')?.errors?.maxLength"
-              mensagem="Tamanho maximo do campo é de 500 caracteres"
+              mensagem="Tamanho maximo do campo é de 3000 caracteres"
             >
             </app-mensagem>
-            <div class="mt-3 d-flex justify-content-center">
-              <button class="btn btn-primary" [disabled]="bookForm.invalid">
+            <div class="mt-3 d-flex justify-content-center ">
+              <button class="btn btn-primary btnCadastro" [disabled]="bookForm.invalid">
                 CADASTRAR
+              </button>
+              <button class="btn btn-primary close"  (click)="fechar()">
+                FECHAR
               </button>
             </div>
           </div>

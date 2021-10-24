@@ -3,7 +3,6 @@ body{
   padding: 0;
 }
 
-
 .example-button-container {
   text-shadow: none;
   box-shadow: none;
@@ -12,7 +11,7 @@ body{
 }
 
 .example-spacer {
-  padding-left: 10px;
+  flex: 1 1 auto;
 }
 
 mat-toolbar {
@@ -21,9 +20,7 @@ mat-toolbar {
   font-family: Helvetica, Arial, sans-serif;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23) ;
   width: 100%;
-  padding: 0;
-  margin: 0;
-  display: flex;
+  flex: 1 1 auto;
 }
 
 a {
@@ -58,3 +55,24 @@ margin-left: 5px;
 .exit {
   margin-left:500px;
 }
+
+.btnExit{
+  background-color: transparent;
+  color: white;
+}
+
+.btnSair{
+  margin-right: 10px;
+  margin-top: auto;
+}
+
+.iconExit{
+  height: 50px;
+}
+
+
+
+
+
+
+

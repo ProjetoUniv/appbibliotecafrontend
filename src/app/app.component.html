@@ -1,11 +1,4 @@
-
-<app-cabecalho *ngIf="mostrarMenu" >
-</app-cabecalho>
-<router-outlet></router-outlet>
-<app-login *ngIf="!mostrarMenu"></app-login>
-
-
-
-
-
-
+<app-home>
+  <app-cabecalho *ngIf="mostrarMenu" ></app-cabecalho>
+  <router-outlet></router-outlet>
+  </app-home>

@@ -1,9 +1,9 @@
-import { SecurityService } from 'src/app/util/security.service';
-
-import { Usuario } from '../models/usuario';
-import { Router } from '@angular/router';
-import { NovoUsuarioService } from '../services/novo-usuario.service';
 import { EventEmitter, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { SecurityService } from 'src/app/util/security.service';
+import { Usuario } from '../models/usuario';
+
+import { NovoUsuarioService } from '../services/novo-usuario.service';
 
 
 @Injectable({
@@ -19,37 +19,21 @@ export class AuthService {
 
   constructor(private usuarioService: NovoUsuarioService, private router: Router) { }
 
-  autenticar(users: Usuario):void{
-    this.usuarioService.verificaEmaileSenhaExistente(users.email, users.password).subscribe((resposta) => {
-    if(resposta == true){
+  canActivate() {
+    const usuario = SecurityService.getUser();
+    if (usuario) {
       this.usuarioAutenticado = true;
       this.mostrarMenuEmitter.emit(true);
-      this.router.navigate(['livros']);
-    }else{
+      return true;
+    } else {
       this.usuarioAutenticado = false;
       this.mostrarMenuEmitter.emit(false);
-      this.usuarioService.message('Dados Inválidos');
-      this.router.navigate(['']);
+      this.router.navigate(['/login']);
+      return false;
     }
-   })
-}
-
-
-  canActivate(){
-     const usuario = SecurityService.getUser();
-      if(usuario){
-        this.usuarioAutenticado = true;
-        this.mostrarMenuEmitter.emit(true);
-        this.router.navigate(['livros']);
-      }else{
-        this.usuarioAutenticado = false;
-        this.mostrarMenuEmitter.emit(false);
-        this.usuarioService.message('Dados Inválidos');
-        this.router.navigate(['login']);
-      }
   }
 
-  usuarioEstaAutenticado(){
+  usuarioEstaAutenticado() {
     return this.usuarioAutenticado;
   }
 

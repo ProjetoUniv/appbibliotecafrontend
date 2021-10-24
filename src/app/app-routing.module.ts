@@ -1,6 +1,11 @@
+import { AuthService } from './services/auth.service';
+import { AlterarLivrosComponent } from './home/livros/alterar-livros/alterar-livros.component';
+import { DetalheLivrosComponent } from './home/livros/detalhe-livros/detalhe-livros.component';
+import { CadastroLivrosComponent } from './home/livros/cadastro-livros/cadastro-livros.component';
+import { BuscarLivrosComponent } from './home/livros/buscar-livros/buscar-livros.component';
 import { HomeComponent } from './home/home.component';
 
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './home/login/login.component';
@@ -8,18 +13,26 @@ import { NovoUsuarioComponent } from './home/novo-usuario/novo-usuario.component
 import { AuthGuard } from './guards/auth-guard';
 
 const routes: Routes = [
+
   {
     path: '',
-    component: LoginComponent,
+    component: HomeComponent,
+    canActivate: [AuthService],
   },
+
+  { path: 'login', component: LoginComponent },
+
+  { path: 'novousuario', component: NovoUsuarioComponent},
+
   {
-    path: 'novousuario',
-    component: NovoUsuarioComponent
-  },
-  {
-    path: 'livros',
-    loadChildren: () => import('./home/livros/livros.module').then((m) => m.LivrosModule),
-    canActivate: [AuthGuard]
+    path: 'livros', canActivate: [AuthService],
+    children: [
+      { path: '', component: BuscarLivrosComponent },
+      { path: 'cadastro-livros', component: CadastroLivrosComponent},
+      { path: 'detalhes-livros/:id', component: DetalheLivrosComponent },
+      { path: 'alterar-livros/:id', component: AlterarLivrosComponent }
+
+    ]
   },
 
 ]

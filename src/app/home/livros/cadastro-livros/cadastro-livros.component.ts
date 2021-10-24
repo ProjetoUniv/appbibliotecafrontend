@@ -102,4 +102,9 @@ imageUrl?: any | string;
       })
 
     }
+
+    fechar(){
+    this.router.navigate(['livros']);
+
+    }
 }

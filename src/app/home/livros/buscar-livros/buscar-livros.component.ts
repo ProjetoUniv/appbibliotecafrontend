@@ -13,7 +13,7 @@ import { LivrosService } from '../../../services/livros.service';
   templateUrl: './buscar-livros.component.html',
   styleUrls: ['./buscar-livros.component.css']
 })
-export class BuscarLivrosComponent {
+export class BuscarLivrosComponent implements OnInit {
 
   show: boolean = false;
   livros!: Livros[];
@@ -28,6 +28,11 @@ export class BuscarLivrosComponent {
 
   constructor(private livroService: LivrosService, private router: Router,
     private dialogService: AlertModalService) {
+
+  }
+
+
+  ngOnInit(){
     this.getAllBooks();
   }
 
@@ -49,8 +54,7 @@ export class BuscarLivrosComponent {
   }
 
   abrirDetalhes(id: number) {
-    this.router.navigate([`/livros/detalhes-livros/${id}`]);
-
+    this.router.navigate(['/livros/detalhes-livros/', id]);
   }
 
   abrirAlterar(id: number) {
@@ -86,6 +90,12 @@ export class BuscarLivrosComponent {
         console.log(error);
       });
   }
+
+  cadastrarLivros(){
+    this.router.navigate(['livros', 'cadastro-livros']);
+  }
+
+
 
 
 }
