@@ -80,10 +80,10 @@ export class BuscarLivrosComponent implements OnInit {
             this.livroService.message("Livro excluido com sucesso!");
             this.getAllBooks();
             this.show = false;
-            setTimeout(() => {
-              this.show = true;
-              this.getAllBooks()
-            }, 100);
+            // setTimeout(() => {
+            //   this.show = true;
+            //   this.getAllBooks()
+            // }, 100);
           })
         }
       }, (error) => {
@@ -93,6 +93,10 @@ export class BuscarLivrosComponent implements OnInit {
 
   cadastrarLivros(){
     this.router.navigate(['livros', 'cadastro-livros']);
+  }
+
+  ngOnDestroy(){
+
   }
 
 

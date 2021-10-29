@@ -8,7 +8,6 @@ import { AuthService } from '../../services/auth.service';
 import { NovoUsuarioService } from '../../services/novo-usuario.service';
 
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -25,9 +24,19 @@ export class LoginComponent implements OnInit {
 
   constructor(private service: NovoUsuarioService,
     private router: Router, private formBuilder: FormBuilder,
-    private authService: AuthService) { }
+    private authService: AuthService) {
+    const token = sessionStorage.getItem('livrouser') || '';
+    if (token) {
+      this.router.navigate(['/livros']);
+    }
 
-  ngOnInit(): void { }
+  }
+
+  ngOnInit(): void {
+
+
+
+  }
 
   login(users: Usuario) {
     if (users.email == '') {
@@ -57,9 +66,8 @@ export class LoginComponent implements OnInit {
 
   setUser(user: string | any) {
     SecurityService.set(user);
-    //console.log(user);
+    //this.authService.mostrarMenuEmitter.emit(true);
     this.router.navigate(['/livros']);
-
   }
 
   cadastrarUsuario() {

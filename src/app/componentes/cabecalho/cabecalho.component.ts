@@ -1,4 +1,5 @@
-import { Router } from '@angular/router';
+import { AuthService } from './../../services/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from './../../models/usuario';
 import { Livros } from './../../models/livros';
 import { SecurityService } from './../../util/security.service';
@@ -16,19 +17,21 @@ export class CabecalhoComponent {
 
   @Output() public sidenavToggle = new EventEmitter();
 
-  constructor(private novoUsuarioService: NovoUsuarioService, private router: Router) { }
+  url: string = "";
+
+  constructor(private novoUsuarioService: NovoUsuarioService, private router: Router, private authService: AuthService) { }
 
     public onToggleSidenav = () => {
       this.sidenavToggle.emit();
     }
 
  ngOnInit(){
-  this.novoUsuarioService
 
  }
 
  logout(){
    SecurityService.clear();
+   this.authService.mostrarMenuEmitter.emit(false);
    this.router.navigate(['']);
  }
 

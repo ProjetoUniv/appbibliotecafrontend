@@ -1,3 +1,4 @@
+import { CabecalhoComponent } from './componentes/cabecalho/cabecalho.component';
 import { AuthService } from './services/auth.service';
 import { AlterarLivrosComponent } from './home/livros/alterar-livros/alterar-livros.component';
 import { DetalheLivrosComponent } from './home/livros/detalhe-livros/detalhe-livros.component';
@@ -20,12 +21,12 @@ const routes: Routes = [
     canActivate: [AuthService],
   },
 
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, data: {cabecalho: false} },
 
   { path: 'novousuario', component: NovoUsuarioComponent},
 
   {
-    path: 'livros', canActivate: [AuthService],
+    path: 'livros', canActivate: [AuthService],data: {cabecalho: true},
     children: [
       { path: '', component: BuscarLivrosComponent },
       { path: 'cadastro-livros', component: CadastroLivrosComponent},
