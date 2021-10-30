@@ -31,7 +31,6 @@ export class CabecalhoComponent {
 
  logout(){
    SecurityService.clear();
-   this.authService.mostrarMenuEmitter.emit(false);
    this.router.navigate(['']);
  }
 

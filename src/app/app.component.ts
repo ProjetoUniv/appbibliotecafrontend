@@ -45,11 +45,4 @@ export class AppComponent {
   }
 
 
-  mostrarCabecalho() {
-    this.authService.mostrarMenuEmitter.subscribe(
-      mostrar => this.mostrarMenu = mostrar
-    );
-  }
-
-
 }
