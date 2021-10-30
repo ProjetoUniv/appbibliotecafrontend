@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.config.js",
-    "build": "ng build",
+    "build": "ng build --prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -22,6 +22,7 @@
     "@angular/router": "~12.2.0",
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "bootstrap": "^5.1.1",
+    "express": "^4.17.1",
     "font-awesome": "^4.7.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
