@@ -3,7 +3,7 @@ const path = require('path');
 
 const app = express();
 
-const PORT = process.env.PORT || 8082;
+const PORT = process.env.PORT || 8085;
 
 app.use(express.static(__dirname + '/dist/controleLivros'));
 
